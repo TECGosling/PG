@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <h1>Control de Temperatura</h1>
+{% endblock title %}
+
+
+{% block value1 %}
+    {% for temp in temps %}
+        <article class="media content-section">
+          <div class="media-body">
+            <center>
+                <h2 class="article-title"> Temperatura Interior</h2>
+                <input type="text" class="card-value" id="temp_interior" value="28 °C"/>
+            </center>
+            <br>
+          </div>
+        </article>
+
+    {% endfor %}
+
+{% endblock value1%}
+
+{% block value2 %}
+    {% for temp in temps %}
+        <article class="media content-section">
+          <div class="media-body">
+            <center>
+                <h2 class="article-title">Temperatura Exterior</h2>
+                <input type="text" class="card-value" id="temp_exterior" value="29 °C"/>
+            </center>
+            <br>
+          </div>
+        </article>
+
+    {% endfor %}
+
+{% endblock value2 %}
+
+{% block value3 %}
+        <article class="media content-section">
+          <div class="media-body">
+
+            <center>
+                <h2 class="article-title">Humedad Interior</h2>
+                <input type="text" class="card-value" id="hum_interior" value="80%"/>
+            </center>
+
+
+          </div>
+        </article>
+
+{% endblock value3 %}
+
+{% block value4 %}
+    {% for temp in temps %}
+        <article class="media content-section">
+          <div class="media-body">
+
+            <center>
+                <h2 class="article-title">Humedad Exterior</h2>
+                <input type="text" class="card-value" id="hum_exterior" value="75%"/>
+            </center>
+          </div>
+        </article>
+
+    {% endfor %}
+
+{% endblock value4 %}
+
+{% block control %}
+    <div class="container">
+        <center>
+        <form id="form-user" action="" method="POST">
+            <div class="form-box" data-errormsg="">
+                <div class="col-md-4">
+                    <input type="text" class="input_c" id="input_value" required placeholder="Setpoint">
+                    <button class="btn btn-success btn-lg" id="send_button">send</button>
+                    <button class="btn btn-success btn-lg" id="on_button">ON/OFF</button>
+                </div>
+            </div>
+        </form>
+        </center>
+    </div>
+
+    <div class="container">
+        <input type="text" class="card-value" id="error_msg" value="  "/>
+
+    </div>
+    <script>
+
+    const init = function(){
+        document.getElementById('send_button').addEventListener('click', send);
+        document.getElementById('on_button').addEventListener('click', on_off);
+
+    }
+
+    const send = function(ev){
+        ev.preventDefault();
+        let msg = document.getElementById('input_value').value;
+        message = new Paho.MQTT.Message(msg);
+        message.destinationName = "temp_control";
+        client.send(message)
+        document.getElementById('form-user').reset();
+    }
+
+    const on_off = function(ev){
+        ev.preventDefault();
+        message = new Paho.MQTT.Message('1');
+        message.destinationName = "cont";
+        client.send(message)
+
+    }
+
+
+    document.addEventListener('DOMContentLoaded', init);
+    </script>
+{% endblock control %}

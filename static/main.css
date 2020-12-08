@@ -1,0 +1,27 @@
+.article-title{
+    color: #15aba3;
+}
+
+.titulo{
+    font-family: "Cottonwood", Critter, Fantasy;
+    color: #15aba3;
+}
+
+.card-value{
+    font-size: 50px;
+    width: 50%;
+    border: none;
+    font-family: "Cottonwood", Critter, Fantasy;
+    color: #38d17d;
+    background-color: rgba(0,0,0,0);
+}
+
+.input_c{
+    font-size: 22px;
+    width: 35%;
+    font-family: "Cottonwood", Critter, Fantasy;
+    color: #38d17d;
+    background-color: #638a81;
+    padding: 8px;
+    border-radius: 20px 7px;
+}
